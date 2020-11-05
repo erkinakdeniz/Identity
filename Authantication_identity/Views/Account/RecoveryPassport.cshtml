@@ -1,0 +1,39 @@
+﻿@model Authantication_identity.Models.RecoveryPasswordViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/css/reset.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>RecoveryPassport</title>
+</head>
+<body>
+    <div class="card login-form">
+        <div class="card-body">
+            <h3 class="card-title text-center">Reset password</h3>
+
+            <div class="card-text">
+
+                @using (Html.BeginForm("RecoveryPasswort", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Enter your email address and we will send you a link to reset your password.</label>
+
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control form-control-sm", placeholder = "Enter your email address", type = "email" })
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Send password reset email</button>
+                }
+                <p>@Html.ValidationSummary()</p>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

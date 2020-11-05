@@ -1,0 +1,170 @@
+﻿@using System.Web.UI.WebControls
+@using Authantication_identity.Bussiness.Identity
+@model Authantication_identity.Models.ProfilPasswordViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="~/Content/css/profile.css" rel="stylesheet" />
+    <title>UserProfile</title>
+</head>
+<body>
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQRtxYFHA7gQFu-4L_sRqLWnwRy8p1JM7LhGQ&usqp=CAU" class="img-responsive" alt="">
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                       @MembershipTools.GetNameSurname(null)
+                    </div>
+                    <div class="profile-usertitle-job">
+                        @Model.userProfileViewModel.UserName
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR BUTTONS -->
+                <div class="profile-userbuttons">
+                    <button type="button" class="btn btn-success btn-sm">Follow</button>
+                    <button type="button" class="btn btn-danger btn-sm">Message</button>
+                </div>
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="#">
+                                <i class="glyphicon glyphicon-home"></i>
+                                Profil </a>
+                        </li>
+                        @*<li>
+                            <a href="#">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Account Settings </a>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank">
+                                <i class="glyphicon glyphicon-ok"></i>
+                                Tasks </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="glyphicon glyphicon-flag"></i>
+                                Help </a>
+                        </li>*@
+                    </ul>
+                </div>
+                <!-- END MENU -->
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <p>@TempData["Message"]</p><br />
+                    <p>@Html.ValidationSummary()</p>
+
+                    @Html.HiddenFor(x => x.userProfileViewModel.Id)
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(x => x.userProfileViewModel.Name)
+                            @Html.TextBoxFor(x => x.userProfileViewModel.Name, new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(x => x.userProfileViewModel.Surname)
+                            @Html.TextBoxFor(x => x.userProfileViewModel.Surname, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(x => x.userProfileViewModel.UserName)
+
+                            @Html.TextBoxFor(x => x.userProfileViewModel.UserName, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(x => x.userProfileViewModel.Email)
+                            @Html.TextBoxFor(x => x.userProfileViewModel.Email, new { @class = "form-control", type = "email" })
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            @Html.LabelFor(x => x.userProfileViewModel.PhoneNumber)
+                            @Html.TextBoxFor(x => x.userProfileViewModel.PhoneNumber, new { @class = "form-control" })
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 mb-12">
+                            <button class="btn btn-primary" type="submit">Güncelle</button>
+                        </div>
+
+                    </div>
+                }
+
+
+
+
+
+
+
+                @using (Html.BeginForm("ChangePassword", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                  
+                    <div class="form-row">
+                        <br />
+                        <h3>Şifre Değişikliği</h3>
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(x => x.changePassword.OldPassword)
+                            @Html.TextBoxFor(x => x.changePassword.OldPassword, new { @class = "form-control" })
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(x => x.changePassword.NewPassword)
+                            @Html.TextBoxFor(x => x.changePassword.NewPassword, new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            @Html.LabelFor(x => x.changePassword.ConfirmPassword)
+
+                            @Html.TextBoxFor(x => x.changePassword.ConfirmPassword, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 mb-12">
+                            <button class="btn btn-primary" type="submit">Güncelle</button>
+                        </div>
+                    </div>
+                }
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<center>
+    <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
+</center>
+<br>
+<br>
+</body>
+</html>
